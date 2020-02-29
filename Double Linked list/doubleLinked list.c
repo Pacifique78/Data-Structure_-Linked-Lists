@@ -8,7 +8,7 @@ struct node{
 main(){
     int c;
     do{
-        printf("\n1.Push\n2.Append\n3.display forward\n4.display backward\n5.delete\n6.insert(after value)\n7.insert(at a position)\n0.Exit\nMake a choice: ");
+        printf("\n1.Push\n2.Append\n3.display forward\n4.display backward\n5.delete\n6.insert(after value)\n7.insert(at a position)\n8.Delete Even Numbers\n9.Find maximum number\n0.Exit\nMake a choice: ");
         scanf("%d", &c);
         switch(c){
         case 1:
@@ -34,6 +34,9 @@ main(){
             break;
         case 8:
             deleteEvenNumbers();
+            break;
+        case 9:
+            findMax();
             break;
         case 0:
             printf("bye");
@@ -250,5 +253,20 @@ deleteEvenNumbers(){
                 q = q->next;
             }
         }
+    }
+}
+findMax(){
+    struct node *q;
+    if(h == NULL) return;
+    else{
+        int max = h->data;
+        q = h;
+        while(q != NULL){
+            if(max<q->data){
+                max = q->data;
+            }
+            q = q->next;
+        }
+        printf("\nThe maximum number is %d", max);
     }
 }
