@@ -32,6 +32,9 @@ main(){
         case 7:
             insertAtPosition();
             break;
+        case 8:
+            deleteEvenNumbers();
+            break;
         case 0:
             printf("bye");
             break;
@@ -217,5 +220,35 @@ insertAtPosition(){
             }
         }
     }
-
+}
+deleteEvenNumbers(){
+    struct node *p, *q, *z;
+    if(h==NULL) return;
+    else{
+        if(h->data%2 == 0){
+            h = h->next;
+            h->previous = NULL;
+            deleteEvenNumbers();
+            return;
+        }
+        else{
+            p = h;
+            q = h->next;
+            while(q!=NULL){
+                if(q->data%2 == 0){
+                    if(q->next == NULL){
+                        p->next=NULL;
+                        q->previous = NULL;
+                        return;
+                    }
+                    z = q->next;
+                    p->next = q->next;
+                    z->previous = p;
+                    q = q->next;
+                }
+                p = p->next;
+                q = q->next;
+            }
+        }
+    }
 }
