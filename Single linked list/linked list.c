@@ -8,7 +8,7 @@ struct node{
 main(){
     int c;
     do{
-        printf("\n1.Push\n2.Display\n3.Append\n4.Insert(value)\n5.Insert(at position)\n6.Delete(value)\n7.Delete Even Numbers\n8.Delete Odd Numbers\n9.Find maximum number\n10.Find minimum number\n0.Exit\nMake a choice: ");
+        printf("\n1.Push\n2.Display\n3.Append\n4.Insert(value)\n5.Insert(at position)\n6.Delete(value)\n7.Delete Even Numbers\n8.Delete Odd Numbers\n9.Find maximum number\n10.Find minimum number\n11.Delete after value\n0.Exit\nMake a choice: ");
         scanf("%d", &c);
         switch(c){
         case 1:
@@ -40,6 +40,9 @@ main(){
             break;
         case 10:
             printf("The minimum number is: %d", findMin());
+            break;
+        case 11:
+            deleteAfterValue();
             break;
         case 0:
             printf("bye");
@@ -122,7 +125,11 @@ insertAtPosition(){
     int position;
     printf("At which position to insert the number: ");
     scanf("%d", &position);
-    if(counter() < position-1 || position < 1){
+    if(position > counter()+1){
+        printf("the position is not available");
+        return;
+    }
+    else if(position < 1){
         printf("the position is not available");
         return;
     }
@@ -270,4 +277,28 @@ int findMin(){
         }
     }
     return min;
+}
+deleteAfterValue(){
+    struct node *p, *q;
+    if(h == NULL){
+        printf("\nThe list is empty");
+        return;
+    }
+    else{
+        int value;
+        printf("\nEnter the value after which we delete a node: ");
+        scanf("%d", &value);
+        q = h;
+        p = h->next;
+        while(q->data!=value){
+            if(p->next == NULL){
+                printf("\nThe value was not found or it is at the last index");
+                return;
+            }
+            q=q->next;
+            p=p->next;
+        }
+        q->next = p->next;
+        free(p);
+    }
 }
