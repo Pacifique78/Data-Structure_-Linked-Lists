@@ -8,7 +8,7 @@ struct node{
 main(){
     int c;
     do{
-        printf("\n1.Push\n2.Display\n3.Append\n4.Insert(value)\n5.Insert(at position)\n6.Delete(value)\n7.Delete Even Numbers\n8.Delete Odd Numbers\n9.Find maximum number\n10.Find minimum number\n11.Delete after value\n0.Exit\nMake a choice: ");
+        printf("\n1.Push\n2.Display\n3.Append\n4.Insert(value)\n5.Insert(at position)\n6.Delete(value)\n7.Delete Even Numbers\n8.Delete Odd Numbers\n9.Find maximum number\n10.Find minimum number\n11.Delete after value\n11.Delete at position\n0.Exit\nMake a choice: ");
         scanf("%d", &c);
         switch(c){
         case 1:
@@ -43,6 +43,9 @@ main(){
             break;
         case 11:
             deleteAfterValue();
+            break;
+        case 12:
+            deletePosition();
             break;
         case 0:
             printf("bye");
@@ -179,6 +182,7 @@ deleteValue(){
     }
 }
 deletePosition(){
+    struct node *q, *p;
     int position;
     printf("At which position to delete the element: ");
     scanf("%d", &position);
@@ -186,11 +190,19 @@ deletePosition(){
         printf("The position was not found");
         return;
     }
-    struct node *q;
     q = h;
-    for(int i=1; i<position; i++){
-
+    if(position == 1){
+        if(h->next==NULL){
+            h=NULL;
+            return;
+        }
+        h = h->next;
     }
+    for(int i=1; i<position-1; i++){
+        q=q->next;
+    }
+    p = q->next;
+    q->next = p->next;
 }
 deleteAllEvenNumbers(){
     struct node *q, *p;
